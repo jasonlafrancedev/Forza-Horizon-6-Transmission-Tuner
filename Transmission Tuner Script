@@ -1,0 +1,273 @@
+export default function FH6TransmissionTuner() {
+  return (
+    <div className="min-h-screen bg-zinc-950 text-white p-6">
+      <div className="max-w-7xl mx-auto space-y-6">
+
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h1 className="text-4xl font-bold">Forza Horizon 6 Transmission Tuner</h1>
+            <p className="text-zinc-400 mt-2">
+              Advanced gearing calculator with telemetry, graphs, tire calculations, and shareable tune codes.
+            </p>
+          </div>
+
+          <button className="px-4 py-2 rounded-2xl bg-zinc-800 hover:bg-zinc-700 transition">
+            Toggle Dark / Light Theme
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <div className="lg:col-span-1 bg-zinc-900 rounded-3xl p-6 shadow-2xl space-y-4">
+            <h2 className="text-2xl font-semibold">Vehicle Setup</h2>
+
+            <div>
+              <label className="block mb-2 text-sm text-zinc-400">Horsepower</label>
+              <input
+                type="number"
+                placeholder="720"
+                className="w-full bg-zinc-800 rounded-xl px-4 py-3"
+              />
+            </div>
+
+            <div>
+              <label className="block mb-2 text-sm text-zinc-400">Redline RPM</label>
+              <input
+                type="number"
+                placeholder="7800"
+                className="w-full bg-zinc-800 rounded-xl px-4 py-3"
+              />
+            </div>
+
+            <div>
+              <label className="block mb-2 text-sm text-zinc-400">Vehicle Weight (kg)</label>
+              <input
+                type="number"
+                placeholder="1450"
+                className="w-full bg-zinc-800 rounded-xl px-4 py-3"
+              />
+            </div>
+
+            <div>
+              <label className="block mb-2 text-sm text-zinc-400">Drive Type</label>
+              <select className="w-full bg-zinc-800 rounded-xl px-4 py-3">
+                <option>AWD</option>
+                <option>RWD</option>
+                <option>FWD</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block mb-2 text-sm text-zinc-400">Track Type</label>
+              <select className="w-full bg-zinc-800 rounded-xl px-4 py-3">
+                <option>Circuit</option>
+                <option>Drag</option>
+                <option>Drift</option>
+                <option>Rally</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block mb-2 text-sm text-zinc-400">Front Tire Width</label>
+              <input
+                type="number"
+                placeholder="265"
+                className="w-full bg-zinc-800 rounded-xl px-4 py-3"
+              />
+            </div>
+
+            <div>
+              <label className="block mb-2 text-sm text-zinc-400">Rear Tire Width</label>
+              <input
+                type="number"
+                placeholder="305"
+                className="w-full bg-zinc-800 rounded-xl px-4 py-3"
+              />
+            </div>
+
+            <button className="w-full py-4 rounded-2xl bg-orange-600 hover:bg-orange-500 font-bold transition">
+              Generate Tune
+            </button>
+          </div>
+
+          <div className="lg:col-span-2 space-y-6">
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-zinc-900 rounded-3xl p-5 shadow-xl">
+                <p className="text-zinc-400 text-sm">Final Drive</p>
+                <h3 className="text-3xl font-bold mt-2">3.72</h3>
+              </div>
+
+              <div className="bg-zinc-900 rounded-3xl p-5 shadow-xl">
+                <p className="text-zinc-400 text-sm">Optimal Launch RPM</p>
+                <h3 className="text-3xl font-bold mt-2">5200</h3>
+              </div>
+
+              <div className="bg-zinc-900 rounded-3xl p-5 shadow-xl">
+                <p className="text-zinc-400 text-sm">Estimated Top Speed</p>
+                <h3 className="text-3xl font-bold mt-2">357 km/h</h3>
+              </div>
+            </div>
+
+            <div className="bg-zinc-900 rounded-3xl p-6 shadow-2xl">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-semibold">Live Gear Visualization</h2>
+                <button className="px-4 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700">
+                  Export Graph
+                </button>
+              </div>
+
+              <div className="h-72 rounded-2xl border border-zinc-800 flex items-center justify-center text-zinc-500">
+                Interactive Gear Ratio / Speed Graph Placeholder
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+
+              <div className="bg-zinc-900 rounded-3xl p-6 shadow-2xl overflow-auto">
+                <h2 className="text-2xl font-semibold mb-4">Gear Ratios</h2>
+
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="border-b border-zinc-800 text-zinc-400">
+                      <th className="pb-3">Gear</th>
+                      <th className="pb-3">Ratio</th>
+                      <th className="pb-3">Speed</th>
+                      <th className="pb-3">RPM Drop</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {[1,2,3,4,5,6,7].map((gear) => (
+                      <tr key={gear} className="border-b border-zinc-800">
+                        <td className="py-3">{gear}</td>
+                        <td>1.{gear}2</td>
+                        <td>{gear * 48} km/h</td>
+                        <td>{gear * 450} RPM</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="space-y-6">
+
+                <div className="bg-zinc-900 rounded-3xl p-6 shadow-2xl">
+                  <h2 className="text-2xl font-semibold mb-4">Tire Size Calculator</h2>
+
+                  <div className="space-y-3 text-zinc-300">
+                    <div className="flex justify-between">
+                      <span>Tire Diameter</span>
+                      <span>27.4 in</span>
+                    </div>
+
+                    <div className="flex justify-between">
+                      <span>Rolling Circumference</span>
+                      <span>86.1 in</span>
+                    </div>
+
+                    <div className="flex justify-between">
+                      <span>Speed Correction</span>
+                      <span>+2.4%</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-zinc-900 rounded-3xl p-6 shadow-2xl">
+                  <h2 className="text-2xl font-semibold mb-4">Launch Optimization</h2>
+
+                  <div className="space-y-3 text-zinc-300">
+                    <div className="flex justify-between">
+                      <span>Grip Rating</span>
+                      <span>92%</span>
+                    </div>
+
+                    <div className="flex justify-between">
+                      <span>Wheelspin Risk</span>
+                      <span>Low</span>
+                    </div>
+
+                    <div className="flex justify-between">
+                      <span>0-100 Estimate</span>
+                      <span>2.7s</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div className="bg-zinc-900 rounded-3xl p-6 shadow-2xl">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                  <h2 className="text-2xl font-semibold">Telemetry Overlay</h2>
+                  <p className="text-zinc-400 mt-2">
+                    Simulated live data for RPM, throttle, tire slip, and gear state.
+                  </p>
+                </div>
+
+                <div className="flex gap-3">
+                  <button className="px-4 py-2 rounded-xl bg-green-700 hover:bg-green-600">
+                    Start Telemetry
+                  </button>
+
+                  <button className="px-4 py-2 rounded-xl bg-red-700 hover:bg-red-600">
+                    Stop
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                <div className="bg-zinc-800 rounded-2xl p-4">
+                  <p className="text-zinc-400 text-sm">RPM</p>
+                  <h3 className="text-3xl font-bold">7420</h3>
+                </div>
+
+                <div className="bg-zinc-800 rounded-2xl p-4">
+                  <p className="text-zinc-400 text-sm">Throttle</p>
+                  <h3 className="text-3xl font-bold">100%</h3>
+                </div>
+
+                <div className="bg-zinc-800 rounded-2xl p-4">
+                  <p className="text-zinc-400 text-sm">Current Gear</p>
+                  <h3 className="text-3xl font-bold">4</h3>
+                </div>
+
+                <div className="bg-zinc-800 rounded-2xl p-4">
+                  <p className="text-zinc-400 text-sm">Tire Slip</p>
+                  <h3 className="text-3xl font-bold">3%</h3>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-zinc-900 rounded-3xl p-6 shadow-2xl">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                  <h2 className="text-2xl font-semibold">Shareable Tune Codes</h2>
+                  <p className="text-zinc-400 mt-2">
+                    Export or import tune setups with encoded configuration strings.
+                  </p>
+                </div>
+
+                <button className="px-5 py-3 rounded-2xl bg-orange-600 hover:bg-orange-500 font-semibold">
+                  Generate Tune Code
+                </button>
+              </div>
+
+              <div className="mt-6 bg-zinc-800 rounded-2xl p-4 flex items-center justify-between gap-4">
+                <code className="text-orange-400 text-lg break-all">
+                  FH6-AWD-372-165-135-110-082
+                </code>
+
+                <button className="px-4 py-2 rounded-xl bg-zinc-700 hover:bg-zinc-600 whitespace-nowrap">
+                  Copy
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
