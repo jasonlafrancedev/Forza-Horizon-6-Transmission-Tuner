@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Forza Horizon 6 Transmission Tuner</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #111;
+        color: white;
+        padding: 30px;
+    }
+
+    .container {
+        max-width: 700px;
+        margin: auto;
+        background: #1b1b1b;
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    label {
+        display: block;
+        margin-top: 15px;
+    }
+
+    input, select, button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 6px;
+        border: none;
+    }
+
+    button {
+        background: #ff3c00;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 25px;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #333;
+        text-align: center;
+    }
+
+    .result {
+        margin-top: 20px;
+        font-size: 18px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>FH6 Transmission Tuner</h1>
+
+    <label>Horsepower</label>
+    <input type="number" id="horsepower" value="720">
+
+    <label>Drive Type</label>
+    <select id="driveType">
+        <option>AWD</option>
+        <option>RWD</option>
+        <option>FWD</option>
+    </select>
+
+    <label>Track Type</label>
+    <select id="trackType">
+        <option>Circuit</option>
+        <option>Drag</option>
+        <option>Drift</option>
+        <option>Rally</option>
+    </select>
+
+    <button onclick="generateTune()">Generate Tune</button>
+
+    <div class="result" id="finalDrive"></div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Gear</th>
+                <th>Ratio</th>
+            </tr>
+        </thead>
+        <tbody id="gearTable"></tbody>
+    </table>
+</div>
+
+<script>
+
+function generateTune() {
+
+    let horsepower = parseInt(document.getElementById("horsepower").value);
+    let driveType = document.getElementById("driveType").value;
+    let trackType = document.getElementById("trackType").value;
+
+    let finalDrive = 3.60;
+
+    let gears = [
+        3.20,
+        2.10,
+        1.55,
+        1.22,
+        1.00,
+        0.82,
+        0.68
+    ];
+
+    // TRACK TYPE LOGIC
+    if (trackType === "Circuit") {
+        finalDrive = 3.60;
+        gears[2] = 1.65;
+        gears[3] = 1.35;
+        gears[4] = 1.10;
+    }
+
+    if (trackType === "Drag") {
+        finalDrive = 2.60;
+        gears[0] = 2.80;
+        gears[1] = 1.90;
+    }
+
+    if (trackType === "Drift") {
+        finalDrive = 4.30;
+        gears[1] = 2.40;
+        gears[2] = 1.85;
+    }
+
+    if (trackType === "Rally") {
+        finalDrive = 4.50;
+    }
+
+    // AWD ADJUSTMENT
+    if (driveType === "AWD") {
+        finalDrive += 0.10;
+    }
+
+    // HIGH POWER ADJUSTMENT
+    if (horsepower > 900) {
+        gears[0] -= 0.30;
+        gears[1] -= 0.20;
+    }
+
+    // DISPLAY RESULTS
+    document.getElementById("finalDrive").innerHTML =
+        `<strong>Final Drive:</strong> ${finalDrive.toFixed(2)}`;
+
+    let tableHTML = "";
+
+    gears.forEach((gear, index) => {
+        tableHTML += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${gear.toFixed(2)}</td>
+            </tr>
+        `;
+    });
+
+    document.getElementById("gearTable").innerHTML = tableHTML;
+}
+
+</script>
+
+</body>
+</html>
